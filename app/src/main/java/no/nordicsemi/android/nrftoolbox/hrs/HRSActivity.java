@@ -28,6 +28,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -195,6 +196,19 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 			}
 		});
 	}
+	private void setGSRValueOnView(final float value) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (value >= MIN_POSITIVE_VALUE && value <= MAX_HR_VALUE) {
+					mHRSValue.setText(Float.toString((float) 123.123));
+					Log.d("YP", "Float.toString(value) = " + Float.toString(value) );
+				} else {
+					mHRSValue.setText(Float.toString(((float) value)));
+				}
+			}
+		});
+	}
 
 	private void setHRSPositionOnView(final String position) {
 		runOnUiThread(new Runnable() {
@@ -222,6 +236,11 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 	@Override
 	public void onHRSensorPositionFound(final BluetoothDevice device, final String position) {
 		setHRSPositionOnView(position);
+	}
+
+	@Override
+	public void onGSRValueReceived(BluetoothDevice device, float value) {
+		setGSRValueOnView(value);
 	}
 
 	@Override

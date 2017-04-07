@@ -42,6 +42,7 @@ import no.nordicsemi.android.nrftoolbox.profile.BleManager;
  */
 public class HRSManager extends BleManager<HRSManagerCallbacks> {
 	public final static UUID HR_SERVICE_UUID = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb");
+//	public final static UUID HR_SERVICE_UUID = UUID.fromString("ec30b000-2bb0-2494-154c-58600000bbbb");
 	private static final UUID HR_SENSOR_LOCATION_CHARACTERISTIC_UUID = UUID.fromString("00002A38-0000-1000-8000-00805f9b34fb");
 	private static final UUID HR_CHARACTERISTIC_UUID = UUID.fromString("00002A37-0000-1000-8000-00805f9b34fb");
 
@@ -125,8 +126,10 @@ public class HRSManager extends BleManager<HRSManagerCallbacks> {
 			} else {
 				hrValue = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 1);
 			}
+			float gsr = characteristic.getFloatValue(BluetoothGattCharacteristic.FORMAT_FLOAT, 1);
 			//This will send callback to HRSActivity when new HR value is received from HR device
-			mCallbacks.onHRValueReceived(gatt.getDevice(), hrValue);
+			mCallbacks.onGSRValueReceived(gatt.getDevice(), gsr);
+//			mCallbacks.onHRValueReceived(gatt.getDevice(), hrValue);
 		}
 	};
 
