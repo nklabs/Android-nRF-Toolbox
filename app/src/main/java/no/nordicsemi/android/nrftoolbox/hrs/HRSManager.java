@@ -126,12 +126,25 @@ public class HRSManager extends BleManager<HRSManagerCallbacks> {
 			} else {
 				hrValue = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 1);
 			}
-			float gsr = characteristic.getFloatValue(BluetoothGattCharacteristic.FORMAT_FLOAT, 1);
-			//This will send callback to HRSActivity when new HR value is received from HR device
-			mCallbacks.onGSRValueReceived(gatt.getDevice(), gsr);
+
+            //This will send callback to HRSActivity when new HR value is received from HR device
+			mCallbacks.onGSRValueReceived(gatt.getDevice(), bytesToFloat(characteristic.getValue()[1],
+                                                                         characteristic.getValue()[2],
+                                                                         characteristic.getValue()[3],
+                                                                         characteristic.getValue()[4]));
 //			mCallbacks.onHRValueReceived(gatt.getDevice(), hrValue);
 		}
 	};
+
+    private float bytesToFloat(byte b0, byte b1, byte b2, byte b3) {
+        int asInt = (b0 & 0xFF)
+                |  ((b1 & 0xFF) << 8)
+                |  ((b2 & 0xFF) << 16)
+                |  ((b3 & 0xFF) << 24);
+        return  Float.intBitsToFloat(asInt);
+    }
+
+
 
 	/**
 	 * This method will decode and return Heart rate sensor position on body

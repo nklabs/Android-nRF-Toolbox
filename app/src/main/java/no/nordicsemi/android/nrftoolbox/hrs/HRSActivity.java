@@ -200,12 +200,10 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				if (value >= MIN_POSITIVE_VALUE && value <= MAX_HR_VALUE) {
-					mHRSValue.setText(Float.toString((float) 123.123));
+
 					Log.d("YP", "Float.toString(value) = " + Float.toString(value) );
-				} else {
-					mHRSValue.setText(Float.toString(((float) value)));
-				}
+					mHRSValue.setText(Float.toString((value)));
+
 			}
 		});
 	}
