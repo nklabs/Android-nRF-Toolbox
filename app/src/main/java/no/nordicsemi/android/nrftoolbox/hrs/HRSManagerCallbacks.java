@@ -45,5 +45,5 @@ public interface HRSManagerCallbacks extends BleManagerCallbacks {
 	 */
 	void onHRValueReceived(final BluetoothDevice device, int value);
 
-	void onGSRValueReceived(final BluetoothDevice device, float value);
+	void onGSRValueReceived(final BluetoothDevice device, float value, long timestamp, int useralert, int datavalid);
 }

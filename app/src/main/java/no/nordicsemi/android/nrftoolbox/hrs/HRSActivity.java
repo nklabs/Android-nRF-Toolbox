@@ -65,6 +65,10 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 	private GraphicalView mGraphView;
 	private LineGraphView mLineGraph;
 	private TextView mHRSValue, mHRSPosition;
+	private TextView mTimeStampValue;
+	private TextView mUserAlertValue;
+	private TextView mDataValidValue;
+
 
 	private int mHrmValue = 0;
 	private int mCounter = 0;
@@ -79,6 +83,9 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 		mLineGraph = LineGraphView.getLineGraphView();
 		mHRSValue = (TextView) findViewById(R.id.text_hrs_value);
 		mHRSPosition = (TextView) findViewById(R.id.text_hrs_position);
+		mTimeStampValue = (TextView) findViewById(R.id.text_timstamp_value_value);
+		mUserAlertValue = (TextView) findViewById(R.id.text_useralert_value);
+		mDataValidValue = (TextView) findViewById(R.id.text_datavalid_value);
 		showGraph();
 	}
 
@@ -196,17 +203,49 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 			}
 		});
 	}
+
 	private void setGSRValueOnView(final float value) {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
 
-					Log.d("YP", "Float.toString(value) = " + Float.toString(value) );
-					mHRSValue.setText(Float.toString((value)));
+				Log.d("YP", "Float.toString(value) = " + Float.toString(value) );
+				mHRSValue.setText(Float.toString((value)));
 
 			}
 		});
 	}
+	private void setTimestampValueOnView(final long value) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+
+					mTimeStampValue.setText(Long.toString((value)));
+
+			}
+		});
+	}
+	private void setUserAlertValueOnView(final int value) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+
+				mUserAlertValue.setText(Integer.toString((value)));
+
+			}
+		});
+	}
+	private void setDataValidValueOnView(final int value) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+
+				mDataValidValue.setText(Integer.toString((value)));
+
+			}
+		});
+	}
+
 
 	private void setHRSPositionOnView(final String position) {
 		runOnUiThread(new Runnable() {
@@ -237,8 +276,11 @@ public class HRSActivity extends BleProfileActivity implements HRSManagerCallbac
 	}
 
 	@Override
-	public void onGSRValueReceived(BluetoothDevice device, float value) {
+	public void onGSRValueReceived(BluetoothDevice device, float value, long timestamp, int useralert, int datavalid) {
 		setGSRValueOnView(value);
+		setTimestampValueOnView(timestamp);
+		setUserAlertValueOnView(useralert);
+		setDataValidValueOnView(datavalid);
 	}
 
 	@Override

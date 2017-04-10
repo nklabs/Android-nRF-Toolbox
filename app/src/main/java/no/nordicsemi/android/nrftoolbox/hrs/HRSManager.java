@@ -128,10 +128,23 @@ public class HRSManager extends BleManager<HRSManagerCallbacks> {
 			}
 
             //This will send callback to HRSActivity when new HR value is received from HR device
-			mCallbacks.onGSRValueReceived(gatt.getDevice(), bytesToFloat(characteristic.getValue()[1],
-                                                                         characteristic.getValue()[2],
-                                                                         characteristic.getValue()[3],
-                                                                         characteristic.getValue()[4]));
+//            typedef struct
+//            {
+//                uint8_t   flags;//0
+//                float     skin_conductance;//1-4
+//                uint32_t  time;//5-8
+//                bool      data_valid;//9
+//                bool      user_alert;//10
+//            } ble_gsr_gsr_t;
+            float gsr = bytesToFloat(characteristic.getValue()[1],
+                                     characteristic.getValue()[2],
+                                     characteristic.getValue()[3],
+                                     characteristic.getValue()[4]);
+            long timestamp = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT32, 5);
+            int datavalid = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8,  9);
+            int useralert = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 10);
+            mCallbacks.onGSRValueReceived(gatt.getDevice(), gsr, timestamp, useralert, datavalid);
+
 //			mCallbacks.onHRValueReceived(gatt.getDevice(), hrValue);
 		}
 	};
