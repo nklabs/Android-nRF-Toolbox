@@ -199,6 +199,7 @@ public abstract class BleProfileActivity extends AppCompatActivity implements Bl
 		if (isBLEEnabled()) {
 			if (!mDeviceConnected) {
 				setDefaultUI();
+				String ts = getFilterUUID().toString();
 				showDeviceScanningDialog(getFilterUUID());
 			} else {
 				mBleManager.disconnect();
@@ -431,7 +432,8 @@ public abstract class BleProfileActivity extends AppCompatActivity implements Bl
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				final ScannerFragment dialog = ScannerFragment.getInstance(filter);
+//				final ScannerFragment dialog = ScannerFragment.getInstance(filter);
+				final ScannerFragment dialog = ScannerFragment.getInstance(null);
 				dialog.show(getSupportFragmentManager(), "scan_fragment");
 			}
 		});

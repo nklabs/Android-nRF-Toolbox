@@ -41,10 +41,13 @@ import no.nordicsemi.android.nrftoolbox.profile.BleManager;
  * Service and reading heart rate values are performed here. HRSActivity implements HRSManagerCallbacks in order to receive callbacks of BluetoothGatt operations
  */
 public class HRSManager extends BleManager<HRSManagerCallbacks> {
-	public final static UUID HR_SERVICE_UUID = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb");
-//	public final static UUID HR_SERVICE_UUID = UUID.fromString("ec30b000-2bb0-2494-154c-58600000bbbb");
-	private static final UUID HR_SENSOR_LOCATION_CHARACTERISTIC_UUID = UUID.fromString("00002A38-0000-1000-8000-00805f9b34fb");
-	private static final UUID HR_CHARACTERISTIC_UUID = UUID.fromString("00002A37-0000-1000-8000-00805f9b34fb");
+//	public final static UUID HR_SERVICE_UUID = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb");
+//	private static final UUID HR_SENSOR_LOCATION_CHARACTERISTIC_UUID = UUID.fromString("00002A38-0000-1000-8000-00805f9b34fb");
+//	private static final UUID HR_CHARACTERISTIC_UUID = UUID.fromString("00002A37-0000-1000-8000-00805f9b34fb");
+
+	public final static UUID HR_SERVICE_UUID = UUID.fromString("aabbaaaa-aabb-ccdd-eeff-112233445566");
+	private static final UUID HR_SENSOR_LOCATION_CHARACTERISTIC_UUID = UUID.fromString("aabb2a38-aabb-ccdd-eeff-112233445566");
+	private static final UUID HR_CHARACTERISTIC_UUID = UUID.fromString("aabb2a37-aabb-ccdd-eeff-112233445566");
 
 	private BluetoothGattCharacteristic mHRCharacteristic, mHRLocationCharacteristic;
 
